@@ -1,4 +1,4 @@
-const { userRegistrationService,userloginService,getUserPrefrences } = require("../services/user.service");
+const { userRegistrationService,userloginService,getUserPrefrences,UpdateUserPrefrences } = require("../services/user.service");
 
 async function createUser(req, res) {
   try {
@@ -41,4 +41,18 @@ async function getPreferences(req,res){
 
 }
 
-module.exports = { createUser,loginUser,getPreferences};
+async function UpdatePreferences(req,res){
+  try {
+    const {status,message} = await UpdateUserPrefrences(req.body);
+    res.status(status).json({
+      message
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
+    });
+  }
+
+}
+
+module.exports = { createUser,loginUser,getPreferences,UpdatePreferences};

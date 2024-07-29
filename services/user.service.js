@@ -87,8 +87,28 @@ async function getUserPrefrences(body) {
   }
 }
 
+async function UpdateUserPrefrences(body) {
+  try {
+    const { preferences,username } = body;
+    console.log("username: "+username);
+    const user = await UserModel.findOne({ username: username });
+    if (!user) return {status :404,message:'User not found'};
+  
+    user.preferences = preferences;
+    await user.save();
+    return {
+      status: 200,
+      message:"prefrences Saved!",
+    };
+
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
 module.exports = {
   userRegistrationService,
   userloginService,
   getUserPrefrences,
+  UpdateUserPrefrences,
 };

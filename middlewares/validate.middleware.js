@@ -14,9 +14,10 @@ function validateUser(req, res, next) {
         res.status(401).send("redirect to login");
       } else {
         const username = decodedString.user;
+        console.log(username);
         const id = decodedString.id;
-        req.username = username;
-        req.id = id;
+        req.body.username = username;
+        req.body.id = id;
         next();
       }
     });
